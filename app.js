@@ -6,7 +6,6 @@ const consultar = () =>{
         alert('Gracias por usar nuestros servicios.');
     }
 }
-
 const intereses = (prestamo, cuotas) => {
     for (let i = 1; i <= cuotas; i++) {
         let tasa = 1.5;
@@ -17,8 +16,6 @@ const intereses = (prestamo, cuotas) => {
         //return calculo = prestamo * 0.02 * cuotas;
     }
 }
-
-
 const retirar = (retiro) =>{
     let intentos = 2;
     for (let i = 2; i <= intentos; i--) {
@@ -47,7 +44,6 @@ const retirar = (retiro) =>{
         }
     }
 }
-
 class CuentaBanco{
     constructor(nombre, dinero, clave){
         this.nombre = nombre;
@@ -57,15 +53,12 @@ class CuentaBanco{
 }
 let nombreUser = prompt('Ingrese su Nombre de Usuario');
 nombreUser = nombreUser.toUpperCase();
-let dineroUser = parseInt(prompt('Por favor, sea genero e ingrese la cantidad de dinero en su cuenta bancaria.'));
+let dineroUser = parseInt(prompt('Por favor, sea generoso e ingrese la cantidad de dinero en su cuenta bancaria.'));
 let claveUser = parseInt(prompt('Cree su clave bancaria de 3 digitos.'));
 const Usuario1 = new CuentaBanco(nombreUser, dineroUser, claveUser)
 
-
-
 const MOVIMIENTOS_CUENTA = [];
 console.log(MOVIMIENTOS_CUENTA);
-
 
 const cajeroAutomatico = (retiro) => { 
     if (Usuario1.nombre) {
@@ -108,6 +101,8 @@ const cajeroAutomatico = (retiro) => {
                 for(movimientos in MOVIMIENTOS_CUENTA){
                     alert(MOVIMIENTOS_CUENTA[movimientos])
                 }
+                consultar();
+                break;
             case '6':
                 alert('Gracias por usar nuestros servicios.')
                 break;
@@ -120,5 +115,4 @@ const cajeroAutomatico = (retiro) => {
         alert('Usuario o contraseña incorrectos');
     }
 }
-
 cajeroAutomatico();
