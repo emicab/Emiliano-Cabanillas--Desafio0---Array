@@ -32,6 +32,8 @@ const retirar = (retiro) =>{
                 if(retiro <= Usuario1.dinero){
                     Usuario1.dinero -= retiro;
                     alert('Has retirado: $' + retiro);
+                    let mov1 = 'Has retirado: $' + retiro;
+                    MOVIMIENTOS_CUENTA.push(mov1)
                     alert('Su saldo actual es: $' + Usuario1.dinero);
                     consultar();
                     break;
@@ -60,15 +62,15 @@ let claveUser = parseInt(prompt('Cree su clave bancaria de 3 digitos.'));
 const Usuario1 = new CuentaBanco(nombreUser, dineroUser, claveUser)
 
 
-console.log(Usuario1);
 
 const MOVIMIENTOS_CUENTA = [];
+console.log(MOVIMIENTOS_CUENTA);
 
 
 const cajeroAutomatico = (retiro) => { 
     if (Usuario1.nombre) {
         alert('BIENVENIDO ' + Usuario1.nombre + ' AL CAJERO AUTOMATICO');
-        let opciones = prompt('Ingrese su opcion: \n 1. Retiro \n 2. Deposito \n 3. Consulta \n 4. Prestamos \n 5. Salir');
+        let opciones = prompt('Ingrese su opcion: \n 1. Retiro \n 2. Deposito \n 3. Consulta \n 4. Prestamos \n 5. Movimientos \n 6. Salir');
         switch (opciones) {
             case '1':
                 retirar(retiro);
@@ -77,6 +79,8 @@ const cajeroAutomatico = (retiro) => {
                 let deposito = parseInt(prompt('Ingrese el monto a depositar'));
                 Usuario1.dinero += deposito;
                 alert('Su saldo actual es: $' + Usuario1.dinero);
+                let mov1 = 'Has depositado: $' + deposito;
+                    MOVIMIENTOS_CUENTA.push(mov1)
                 consultar();
                 break;
             case '3':
@@ -92,12 +96,19 @@ const cajeroAutomatico = (retiro) => {
                 if (aprobarPrestamo == true) {
                     Usuario1.dinero += prestamo;
                     alert('Su saldo actual es: $' + Usuario1.dinero);
+                    let mov1 = 'Has solicitado un prestamo de: $' + prestamo;
+                        MOVIMIENTOS_CUENTA.push(mov1)
                 } else {
                     alert('El prestamo ha sido cancelado');
                 }
                 consultar();
                 break;
             case '5':
+                alert('Cargando los movimientos de tu cuenta...');
+                for(movimientos in MOVIMIENTOS_CUENTA){
+                    alert(MOVIMIENTOS_CUENTA[movimientos])
+                }
+            case '6':
                 alert('Gracias por usar nuestros servicios.')
                 break;
             default:
