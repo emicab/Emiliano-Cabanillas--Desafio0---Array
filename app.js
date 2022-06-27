@@ -13,7 +13,6 @@ const intereses = (prestamo, cuotas) => {
         valorCuota = (calculo + prestamo) / cuotas;
         totalPrest = calculo * cuotas;
         alert(`El valor de la cuota numero ${i} es: $${calculo}`);
-        //return calculo = prestamo * 0.02 * cuotas;
     }
 }
 const retirar = (retiro) =>{
