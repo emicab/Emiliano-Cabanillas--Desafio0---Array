@@ -1,0 +1,63 @@
+*{margin: 0; padding: 0; box-sizing: border-box;}
+body{
+    font-family: 'Heebo', sans-serif;
+    width: 100%;
+    height: 100vh;
+    background-color: #393E41;
+    color: #F6F7EB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tituloHead{
+margin-bottom: 10px;}
+.bienvenida{
+    
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.contenedor{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: #3C6383;
+    width: 600px;
+    height: 200px;
+    border-radius: 13px;
+}
+.consultasHead{
+    margin: 15px;
+    text-transform: uppercase;
+}
+.dineroConsulta{
+    display: flex;
+}
+.montoDepo{
+    width: 130px !important;
+}
+.dinero{
+    border-radius: 13px;
+    width: 110px;
+    height: 60px;
+    background-color: #3F88C5;
+    margin: 15px;
+    text-align: center;
+    padding: 7px;
+}
+.dinero h3{
+    text-transform: uppercase;
+}
+span{
+    font-style: italic;
+    line-height: 20px;
+}
+.divisa{
+    border-radius: 13px;
+    width: 130px;
+    height: 60px;
+    background-color: #3147be;
+    margin: 15px;
+    text-align: center;
+    padding: 7px;
+}
