@@ -23,30 +23,34 @@ margin-bottom: 10px;}
     flex-direction: column;
     background-color: #3C6383;
     width: 600px;
-    height: 200px;
+    height: 250px;
     border-radius: 13px;
 }
 .consultasHead{
-    margin: 15px;
+    
     text-transform: uppercase;
+    margin: 10px 3px 3px 0px;
 }
 .dineroConsulta{
     display: flex;
+    
 }
 .montoDepo{
     width: 130px !important;
+    margin: 5px 3px 3px 0px !important
 }
 .dinero{
     border-radius: 13px;
     width: 110px;
     height: 60px;
-    background-color: #3F88C5;
+    background-color: #126db8;
     margin: 15px;
     text-align: center;
     padding: 7px;
 }
 .dinero h3{
     text-transform: uppercase;
+    
 }
 span{
     font-style: italic;
@@ -54,10 +58,31 @@ span{
 }
 .divisa{
     border-radius: 13px;
-    width: 130px;
+    width: 140px;
     height: 60px;
     background-color: #3147be;
-    margin: 15px;
+    margin: 0px 3px 3px 0px;
     text-align: center;
     padding: 7px;
+}
+.precioDivisas{
+    display: flex;
+    
+}
+.consultasDivisasHead{
+    margin: 2px;
+}
+.btnAtras{
+    margin: 5px 10px;
+    padding: 5px 10px;
+    background-color: #35a844;
+    font-weight: bold;
+    color: #fff;
+    border:none;
+    cursor: pointer;
+    border-radius: 13px;
+
+}
+.btnAtras:hover{
+    background-color: #36d84c;
 }

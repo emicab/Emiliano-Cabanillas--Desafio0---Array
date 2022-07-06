@@ -1,3 +1,9 @@
+const btnAtras = document.querySelector('.btnAtras');
+
+btnAtras.addEventListener('click', () =>{
+    cajeroAutomatico();
+})
+
 const consultar = () =>{
     let opcion = confirm('Desea realizar otra acción?');
     if(opcion == true){
@@ -28,17 +34,17 @@ const retirar = (retiro) =>{
                 if(retiro <= Usuario1.dinero.Pesos){
                     Usuario1.dinero.Pesos -= retiro;
                     contenedor.innerHTML = `
-                    <h2 class="consultasHead">Monto Retirado</h2>
-                    <div class="dineroConsulta">
-                        <div class="dinero montoDepo">
-                        <h3>Retirado:</h3>
-                            <span>$${retiro}<span>
-                        </div>
-                        <div class="dinero">
-                            <h3>Pesos:</h3>
-                            <span>$${Usuario1.dinero.Pesos}<span>
-                        </div>
-                    </div>`
+                        <h2 class="consultasHead">Monto Retirado</h2>
+                        <div class="dineroConsulta">
+                            <div class="dinero montoDepo">
+                            <h3>Retirado:</h3>
+                                <span>$${retiro}<span>
+                            </div>
+                            <div class="dinero">
+                                <h3>Pesos:</h3>
+                                <span>$${Usuario1.dinero.Pesos}<span>
+                            </div>
+                        </div>`
                     // alert('Has retirado: $' + retiro);
                     let movRetiro = 'Has retirado: $' + retiro;
                     MOVIMIENTOS_CUENTA.push(movRetiro)
@@ -64,11 +70,11 @@ class CuentaBanco{
         this.clave = clave;
     }
 }
-let nombreUser = prompt('Ingrese su Nombre de Usuario');
+// let nombreUser = prompt('Ingrese su Nombre de Usuario');
 /*nombreUser = nombreUser.toUpperCase();
 let dineroUser = parseInt(prompt('Por favor, ingrese su dinero de su cuenta bancaria.'));
 let claveUser = parseInt(prompt('Cree su clave bancaria de 3 digitos.')); */
-const Usuario1 = new CuentaBanco(nombreUser, {Pesos: 1000, Dolares: 100, Euros: 500, Reales: 460}, 123)
+const Usuario1 = new CuentaBanco("emi", {Pesos: 1000, Dolares: 100, Euros: 500, Reales: 460}, 123)
 
 const MONEDAS_EXTRANJERAS = [[{Divisa: "Dolar Venta", Precio: "130,25"},{Divisa: "Dolar Compra", Precio: "124.25"}], [{Divisa: "Euro Venta", Precio: "135,00"}, {Divisa: "Euro Compra", Precio: "128.00"}], [{Divisa: "Real Venta", Precio: "25,80"}, {Divisa: "Real compra", Precio: "21.80"}]]
 
@@ -139,7 +145,7 @@ const cajeroAutomatico = (retiro) => {
                     </div>`
                 let movDepo = 'Has depositado: $' + deposito;
                     MOVIMIENTOS_CUENTA.push(movDepo)
-                consultar();
+                // consultar();
                 break;
             case '3':
                 retirar(retiro);
@@ -148,15 +154,30 @@ const cajeroAutomatico = (retiro) => {
                 let prestamo = parseInt(prompt('Ingrese el monto a solicitar'));
                 let cuotas = parseInt(prompt('Ingrese el numero de cuotas desea devolver el prestamo'));
                 intereses(prestamo, cuotas);
-                alert(`Lo que debera pagar es: ${cuotas} cuotas de $${calculo} con un total de $${totalPrest}`);
+                // alert(`Lo que debera pagar es: ${cuotas} cuotas de $${calculo} con un total de $${totalPrest}`);
                 let aprobarPrestamo = confirm('Desea confirmar el prestamo?');
                 if (aprobarPrestamo == true) {
                     Usuario1.dinero.Pesos += prestamo;
-                    alert('Su saldo actual es: $' + Usuario1.dinero.Pesos);
+                    contenedor.innerHTML = `
+                    <h2 class="consultasHead">Prestamo Solcitado</h2>
+                    <div class="dineroConsulta">
+                        <div class="dinero">
+                        <h3>Prestamo:</h3>
+                            <span>$${prestamo}<span>
+                        </div>
+                        <div class="dinero">
+                            <h3>Pesos:</h3>
+                            <span>$${Usuario1.dinero.Pesos}<span>
+                        </div>
+                    </div>`
+                    // alert('Su saldo actual es: $' + Usuario1.dinero.Pesos);
                     let movPres = 'Has solicitado un prestamo de: $' + prestamo;
                         MOVIMIENTOS_CUENTA.push(movPres)
                 } else {
-                    alert('El prestamo ha sido cancelado');
+                    
+                    contenedor.innerHTML = `
+                    <h3>El prestamo ha sido cancelado</h3>
+                    `
                 }
                 consultar();
                 break;
@@ -166,32 +187,35 @@ const cajeroAutomatico = (retiro) => {
                     let dolares = prompt('Por favor, indique cuantos dolares quiere comprar')
                     monto = dolares * MONEDA_IMPUESTO[0].moneda;
                     if (monto > Usuario1.dinero.Pesos) {
-                        alert('No tienes saldo suficiente para realizar la compra.')
-                        consultar();    
+                        contenedor.innerHTML = `
+                        <h2 class="noSaldo">No tienes saldo suficiente para realizar la compra.</h2>
+                        <h2 class="noSaldo">Estas intentando comprar USD$${monto}.</h2>
+                        <h2 class="noSaldo">Tu saldo en pesos es de $${Usuario1.dinero.Pesos}.</h2>
+                        `
                         break;
                     }else{
                         alert(`Has comprado USD$${monto}.`);
                         Usuario1.dinero.Dolares += monto;
                         Usuario1.dinero.Pesos -= MONEDA_IMPUESTO[0].moneda * dolares;
                         contenedor.innerHTML = `
-                        <h2 class="consultasHead">Precio de Divisas</h2>
-                        <div>
-                        <div class="divisa">
-                            <h3>Dolar Venta</h3>
-                            <span>$${MONEDAS_EXTRANJERAS[0][0].Precio}<span>
-                        </div>
-                        <div class="divisa">
-                            <h3>Dolar Compra</h3>
-                            <span>$${MONEDAS_EXTRANJERAS[0][1].Precio}<span>
-                        </div>
+                        <h2 class="consultasDivisasHead">Precio de Divisas</h2>
+                        <div class="precioDivisas">
+                            <div class="divisa">
+                                <h3>Dolar Venta</h3>
+                                <span>$${MONEDAS_EXTRANJERAS[0][0].Precio}<span>
+                            </div>
+                            <div class="divisa">
+                                <h3>Dolar Compra</h3>
+                                <span>$${MONEDAS_EXTRANJERAS[0][1].Precio}<span>
+                            </div>
                         </div>
                         <h2 class="consultasHead">Compra de Dolares</h2>
                         <div class="dineroConsulta">
                             <div class="dinero montoDepo">
                             <h3>Dolares</h3>
-                                <span>USD$${Usuario1.dinero.Dolares}<span>
+                                <span>USD$${Usuario1.dinero.Euros}<span>
                             </div>
-                            <div class="dinero">
+                            <div class="dinero montoDepo">
                                 <h3>Pesos:</h3>
                                 <span>$${Usuario1.dinero.Pesos}<span>
                             </div>
@@ -205,13 +229,39 @@ const cajeroAutomatico = (retiro) => {
                     let euros = prompt('Por favor, indique cuantos dolares quiere comprar')
                     monto = euros * MONEDA_IMPUESTO[1].moneda;
                     if (monto > Usuario1.dinero.Pesos) {
-                        alert('No tienes saldo suficiente para realizar la compra.')
-                        consultar();
+                        contenedor.innerHTML = `
+                        <h2 class="noSaldo">No tienes saldo suficiente para realizar la compra.</h2>
+                        <h2 class="noSaldo">Estas intentando comprar €${monto}.</h2>
+                        <h2 class="noSaldo">Tu saldo en pesos es de $${Usuario1.dinero.Pesos}.</h2>
+                        `
                         break;
                     }else{
                         alert(`Has comprado €${monto}.`);
                         Usuario1.dinero.Euros += monto;
                         Usuario1.dinero.Pesos -= MONEDA_IMPUESTO[1].moneda * euros;
+                        contenedor.innerHTML = `
+                        <h2 class="consultasHead">Precio de Divisas</h2>
+                        <div class="precioDivisas">
+                            <div class="divisa">
+                                <h3>Euros Venta</h3>
+                                <span>€${MONEDAS_EXTRANJERAS[1][0].Precio}<span>
+                            </div>
+                            <div class="divisa">
+                                <h3>Euros Compra</h3>
+                                <span>€e${MONEDAS_EXTRANJERAS[1][1].Precio}<span>
+                            </div>
+                        </div>
+                        <h2 class="consultasHead">Compra de Euros</h2>
+                        <div class="dineroConsulta">
+                            <div class="dinero montoDepo">
+                            <h3>Euros</h3>
+                                <span>€${Usuario1.dinero.Euros}<span>
+                            </div>
+                            <div class="dinero">
+                                <h3>Pesos:</h3>
+                                <span>$${Usuario1.dinero.Pesos}<span>
+                            </div>
+                        </div>`
                         let movDivisa = `Has comprado €${monto}.`;
                         alert(`Tu saldo actual en pesos es de: $${Usuario1.dinero.Pesos}`)
                         MOVIMIENTOS_CUENTA.push(movDivisa);
@@ -221,8 +271,11 @@ const cajeroAutomatico = (retiro) => {
                     let reales = prompt('Por favor, indique cuantos dolares quiere comprar')
                     monto = reales * MONEDA_IMPUESTO[2].moneda;
                     if (monto > Usuario1.dinero.Pesos) {
-                        alert('No tienes saldo suficiente para realizar la compra.')
-                        consultar();
+                        contenedor.innerHTML = `
+                        <h2 class="noSaldo">No tienes saldo suficiente para realizar la compra.</h2>
+                        <h2 class="noSaldo">Estas intentando comprar R$${monto}.</h2>
+                        <h2 class="noSaldo">Tu saldo en pesos es de $${Usuario1.dinero.Pesos}.</h2>
+                        `
                         break;
                     }else{
                         alert(`Has comprado R$${monto}.`);
@@ -235,14 +288,17 @@ const cajeroAutomatico = (retiro) => {
                 }else{
                     alert('Opcion no disponible')
                 }
-                consultar();
                 break;
             case '6':
+                contenedor.innerHTML = '';
+                console.log(MOVIMIENTOS_CUENTA);
                 alert('Cargando los movimientos de tu cuenta...');
                 for(movimientos in MOVIMIENTOS_CUENTA){
-                    alert(MOVIMIENTOS_CUENTA[movimientos]);
+                    contenedor.innerHTML += `
+                    <h2>${MOVIMIENTOS_CUENTA[movimientos]}</h2>
+                    `
+                    console.log(MOVIMIENTOS_CUENTA[movimientos]);
                 }
-                consultar();
                 break;
             case '7':
                 alert('Gracias por usar nuestros servicios.')
