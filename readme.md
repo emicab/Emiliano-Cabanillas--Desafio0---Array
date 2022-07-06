@@ -9,3 +9,7 @@ Donde el usuario puede retirar, depositar y consultar su dinero. Solicitar un pr
 ## Actualizacion del Proyecto - Linea 61
 - Se agrego la funcion map()
 - Se agrego la funcionalidad de comprar divisas extranjeras.
+
+## Actualizacion del Proyecto - Linea ??
+- Ahora, los resultados, se van a mostrar por medio del HTML.
+- Se incorporó un boton atras para llamar(con un evento) a la funcion principal.
