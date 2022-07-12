@@ -1,17 +1,10 @@
 const btnAtras = document.querySelector('.btnAtras');
 
-btnAtras.addEventListener('click', () =>{
+/* btnAtras.addEventListener('click', () =>{
     cajeroAutomatico();
-})
+}) */
 
-const consultar = () =>{
-    let opcion = confirm('Desea realizar otra acción?');
-    if(opcion == true){
-        cajeroAutomatico();
-    }else{
-        alert('Gracias por usar nuestros servicios.');
-    }
-}
+
 const intereses = (prestamo, cuotas) => {
     for (let i = 1; i <= cuotas; i++) {
         let tasa = 1.5;
@@ -21,45 +14,50 @@ const intereses = (prestamo, cuotas) => {
         alert(`El valor de la cuota numero ${i} es: $${calculo}`);
     }
 }
-const retirar = (retiro) =>{
-    let intentos = 2;
-    for (let i = 2; i <= intentos; i--) {
-        if(i < 0){
-            alert('Su cuenta a sido bloqueada. Comuniquese con su banco para más información. Gracias, vuelva prontos.');
-            break;
-        }else{
-            let pw = parseInt(prompt('Ingrese su clave'));
-            if (pw == Usuario1.clave) {
-                retiro = parseInt(prompt('Ingrese el monto a retirar'));
-                if(retiro <= Usuario1.dinero.Pesos){
-                    Usuario1.dinero.Pesos -= retiro;
-                    contenedor.innerHTML = `
-                        <h2 class="consultasHead">Monto Retirado</h2>
-                        <div class="dineroConsulta">
-                            <div class="dinero montoDepo">
-                            <h3>Retirado:</h3>
-                                <span>$${retiro}<span>
-                            </div>
-                            <div class="dinero">
-                                <h3>Pesos:</h3>
-                                <span>$${Usuario1.dinero.Pesos}<span>
-                            </div>
-                        </div>`
-                    // alert('Has retirado: $' + retiro);
-                    let movRetiro = 'Has retirado: $' + retiro;
-                    MOVIMIENTOS_CUENTA.push(movRetiro)
-                    // alert('Su saldo actual es: $' + Usuario1.dinero.Pesos);
-                    consultar();
-                    break;
-                }else{
-                    alert('No tiene saldo suficiente');
-                }
-                
+const retirar = () =>{
+    contenedor.innerHTML = `
+    <div class="contenido_Deposito" >
+            <h2 class="text-center text-white">Ingrese el monto a retirar</h2>
+            <input class="input monto" type="number" name="" id="monto">
+            <h2 class="text-center text-white">Ingrese su clave bancaria</h2>
+            <input class="input claveUser" type="number" name="" id="claveUser">
+            <input type="submit" class="input btnEnviar" id="btnEnviar" value="Aceptar">
+        </div>
+    
+    `
+    let claveUsuario = document.getElementById('claveUser');
+    let montoRetirar = document.getElementById('monto');
+
+    let btnEnviar = document.getElementById('btnEnviar');
+
+    btnEnviar.addEventListener('click', () =>{
+        if (claveUsuario.value == Usuario1.clave) {
+            if(montoRetirar.value <= Usuario1.dinero.Pesos){
+                Usuario1.dinero.Pesos -= parseInt(montoRetirar.value);
+                contenedor.innerHTML = `
+                    <h2 class="consultasHead text-center text-white">Monto Retirado</h2>
+                    <div class="dineroConsulta">
+                        <div class="dinero montoDepo">
+                        <h3>Retirado:</h3>
+                            <span>$${montoRetirar.value}<span>
+                        </div>
+                        <div class="dinero">
+                            <h3>Pesos:</h3>
+                            <span>$${Usuario1.dinero.Pesos}<span>
+                        </div>
+                    </div>`
+                let movRetiro = 'Has retirado: $' + montoRetirar.value;
+                MOVIMIENTOS_CUENTA.push(movRetiro);
             }else{
-                alert('Su clave es incorrecta. Te quedan: ' + i + ' intentos.');
-            } 
-        }
-    }
+                alert('No tiene saldo suficiente');
+            }
+        }else{
+            claveUsuario.style.borderColor = '#f00'
+            claveUsuario.style.borderStyle = 'solid'
+            claveUsuario.style.borderWidth = '2px'
+            }
+    })
+    
 }
 
 
@@ -70,15 +68,15 @@ class CuentaBanco{
         this.clave = clave;
     }
 }
-// let nombreUser = prompt('Ingrese su Nombre de Usuario');
-/*nombreUser = nombreUser.toUpperCase();
+let nombreUser = prompt('Ingrese su Nombre de Usuario');
+nombreUser = nombreUser.toUpperCase();
 let dineroUser = parseInt(prompt('Por favor, ingrese su dinero de su cuenta bancaria.'));
-let claveUser = parseInt(prompt('Cree su clave bancaria de 3 digitos.')); */
-const Usuario1 = new CuentaBanco("emi", {Pesos: 1000, Dolares: 100, Euros: 500, Reales: 460}, 123)
+let claveUser = parseInt(prompt('Cree su clave bancaria de 3 digitos.'));
+const Usuario1 = new CuentaBanco(nombreUser, {Pesos: dineroUser, Dolares: 100, Euros: 500, Reales: 460}, claveUser  )
 
 const MONEDAS_EXTRANJERAS = [[{Divisa: "Dolar Venta", Precio: "130,25"},{Divisa: "Dolar Compra", Precio: "124.25"}], [{Divisa: "Euro Venta", Precio: "135,00"}, {Divisa: "Euro Compra", Precio: "128.00"}], [{Divisa: "Real Venta", Precio: "25,80"}, {Divisa: "Real compra", Precio: "21.80"}]]
 
-console.log(MONEDAS_EXTRANJERAS[0][0].Divisa);
+// console.log(MONEDAS_EXTRANJERAS[0][0].Divisa);
 
 let impuestoSolidario = 0.30;
 let impuesto = 0.35;
@@ -92,66 +90,107 @@ const MONEDA_IMPUESTO = MONEDAS_EXTRANJERAS.map(moneda =>{
 
 const MOVIMIENTOS_CUENTA = [];
 
-let contenedor = document.querySelector('.contenedor');
+let contenedor = document.getElementById('contenedor');
 const bienvenida = document.querySelector('.bienvenida');
-bienvenida.innerHTML = `¡Bienvenido ${Usuario1.nombre}!`
+bienvenida.innerHTML = `¡Bienvenido ${Usuario1.nombre}!`;
+document.title = `¡Bienvenido ${Usuario1.nombre}!`
 
-// contenedor = '';
+let btnMenu = document.getElementById('mainMenu')
 
 
-const cajeroAutomatico = (retiro) => { 
-    if (Usuario1.nombre) {
-        // alert('BIENVENIDO ' + Usuario1.nombre + ' AL CAJERO AUTOMATICO');
-        let opciones = prompt('Ingrese su opcion: \n 1. Consulta \n 2. Deposito \n 3. Retiro  \n 4. Prestamos \n 5. Comprar Moneda Extranjera \n 6. Movimientos \n 7. Salir');
-        switch (opciones) {
-            case '1':
-                contenedor.innerHTML =
-                `<h2 class="consultasHead">Tu dinero disponible:</h2>
-                <div class="dineroConsulta">
-                    <div class="dinero">
-                        <h3>Pesos:</h3>
-                        <span>$${Usuario1.dinero.Pesos}<span>
-                    </div>
-                    <div class="dinero">
-                        <h3>Dolar:</h3>
-                        <span>USD$${Usuario1.dinero.Dolares}<span>
-                    </div>
-                    <div class="dinero">
-                        <h3>Euros:</h3>
-                        <span>€${Usuario1.dinero.Euros}<span>
-                    </div>
-                    <div class="dinero">
-                        <h3>Real:</h3>
-                        <span>R$${Usuario1.dinero.Reales}<span>
-                    </div>
+const menuPricipal = () => {
+    contenedor.innerHTML = `
+            <h3 class="tituloMenu text-center h2 mb-3 text-uppercase text-white">Opciones</h3>
+            <div class="row d-flex justify-content-center gap-4">
+                <div id="consultas" class="opciones col-lg-3 col-sm-5 col-4 text-center" onclick="consultar()">
+                    <h2>Consultas</h2>
+                    <i class="fa-solid fa-circle-question"></i>
                 </div>
-                `
-                // consultar();
-                break;
-                case '2':
-                    let deposito = parseInt(prompt('Ingrese el monto a depositar en pesos'));
-                    Usuario1.dinero.Pesos += deposito;
-                    contenedor.innerHTML = `
-                    <h2 class="consultasHead">Monto Depositado</h2>
-                    <div class="dineroConsulta">
-                        <div class="dinero montoDepo">
-                        <h3>Depositado:</h3>
-                            <span>$${deposito}<span>
-                        </div>
-                        <div class="dinero">
-                            <h3>Pesos:</h3>
-                            <span>$${Usuario1.dinero.Pesos}<span>
-                        </div>
-                    </div>`
+                <div id="deposito" class="opciones col-lg-3 col-sm-5 col-4 text-center" onclick="deposito()">
+                    <h2>Depositar</h2>
+                    <i class="fa-solid fa-arrow-down-to-line"></i>
+                </div>
+                <div id="retiro" class="opciones col-lg-3 col-sm-5 col-4 text-center" onclick="retirar()">
+                    <h2>Retirar</h2>
+                </div>
+                <div id="divisas" class="opciones col-lg-3 col-sm-5 col-4 text-center" onclick="compraDivisa()">
+                    <h2>Divisas</h2>
+                </div>
+                <div id="prestamos" class="opciones col-lg-3 col-sm-5 col-4 text-center" onclick="prestamo()">
+                    <h2>Prestamos</h2>
+                </div>
+                <div id="movimientos" class="opciones col-lg-3 col-sm-5 col-4 text-center" onclick="movimientos()">
+                    <h2>Movimientos</h2>
+                </div>
+            </div>
+        `
+    }
+menuPricipal();
+
+const consultar = () =>{
+    // contenedor = '';
+    contenedor.innerHTML =
+    `<h2 class="consultasHead text-center mb-5 text-white">Tu dinero disponible:</h2>
+    <div class="dineroConsulta ">
+        <div class="dinero">
+        <h3>Pesos:</h3>
+        <span>$${Usuario1.dinero.Pesos}<span>
+        </div>
+        <div class="dinero">
+            <h3>Dolar:</h3>
+            <span>USD$${Usuario1.dinero.Dolares}<span>
+        </div>
+        <div class="dinero">
+            <h3>Euros:</h3>
+            <span>€${Usuario1.dinero.Euros}<span>
+        </div>
+        <div class="dinero">
+            <h3>Real:</h3>
+            <span>R$${Usuario1.dinero.Reales}<span>
+        </div>
+    </div>
+            `
+            console.log(contenedor);
+        }
+const deposito = () => {
+    contenedor.innerHTML = 
+    `
+    <div class="container-depo">
+        <div class="contenido_Deposito" >
+            <h2 class="text-center">Ingrese el monto a depositar</h2>
+            <input class="input monto" type="number" name="" id="monto">
+            <input type="submit" class="input" id="btnEnviar" value="Aceptar">
+        </div>
+    </div>
+    `
+    let btnEnviar = document.getElementById('btnEnviar');
+    let deposito = document.getElementById("monto");
+    
+    btnEnviar.addEventListener('click', () =>{
+        Usuario1.dinero.Pesos += parseInt(deposito.value);
+        contenedor.innerHTML = `
+        <h2 class="consultasHead text-white text-center">Monto Depositado</h2>
+        <div class="dineroConsulta">
+            <div class="dinero montoDepo">
+            <h3>Depositado:</h3>
+                <span>$${deposito.value}<span>
+            </div>
+            <div class="dinero">
+                <h3>Pesos:</h3>
+                <span>$${Usuario1.dinero.Pesos}<span>
+            </div>
+        </div>`
+    })
                 let movDepo = 'Has depositado: $' + deposito;
-                    MOVIMIENTOS_CUENTA.push(movDepo)
-                // consultar();
-                break;
-            case '3':
-                retirar(retiro);
-                break;
-            case '4':
-                let prestamo = parseInt(prompt('Ingrese el monto a solicitar'));
+                    MOVIMIENTOS_CUENTA.push(movDepo) 
+}
+const prestamo = () => {
+    /*contenedor.innerHTML = 
+    `
+    <h2>Ingrese el monto a solicitar</h2>
+    <input type="number" name="" id="montoSolicitado">
+    `
+     let prestamo = parseInt(prompt(''));
                 let cuotas = parseInt(prompt('Ingrese el numero de cuotas desea devolver el prestamo'));
                 intereses(prestamo, cuotas);
                 // alert(`Lo que debera pagar es: ${cuotas} cuotas de $${calculo} con un total de $${totalPrest}`);
@@ -178,11 +217,10 @@ const cajeroAutomatico = (retiro) => {
                     contenedor.innerHTML = `
                     <h3>El prestamo ha sido cancelado</h3>
                     `
-                }
-                consultar();
-                break;
-            case '5':
-                let divisasComprar = prompt('Seleccione la moneda que quiere comprar: \n 1. Dolar \n 2. Euro \n 3. Real')
+                } */
+}
+const compraDivisa = () => {
+    let divisasComprar = prompt('Seleccione la moneda que quiere comprar: \n 1. Dolar \n 2. Euro \n 3. Real')
                 if(divisasComprar == 1){
                     let dolares = prompt('Por favor, indique cuantos dolares quiere comprar')
                     monto = dolares * MONEDA_IMPUESTO[0].moneda;
@@ -192,7 +230,6 @@ const cajeroAutomatico = (retiro) => {
                         <h2 class="noSaldo">Estas intentando comprar USD$${monto}.</h2>
                         <h2 class="noSaldo">Tu saldo en pesos es de $${Usuario1.dinero.Pesos}.</h2>
                         `
-                        break;
                     }else{
                         alert(`Has comprado USD$${monto}.`);
                         Usuario1.dinero.Dolares += monto;
@@ -234,7 +271,6 @@ const cajeroAutomatico = (retiro) => {
                         <h2 class="noSaldo">Estas intentando comprar €${monto}.</h2>
                         <h2 class="noSaldo">Tu saldo en pesos es de $${Usuario1.dinero.Pesos}.</h2>
                         `
-                        break;
                     }else{
                         alert(`Has comprado €${monto}.`);
                         Usuario1.dinero.Euros += monto;
@@ -276,7 +312,6 @@ const cajeroAutomatico = (retiro) => {
                         <h2 class="noSaldo">Estas intentando comprar R$${monto}.</h2>
                         <h2 class="noSaldo">Tu saldo en pesos es de $${Usuario1.dinero.Pesos}.</h2>
                         `
-                        break;
                     }else{
                         alert(`Has comprado R$${monto}.`);
                         Usuario1.dinero.Reales += monto;
@@ -288,9 +323,9 @@ const cajeroAutomatico = (retiro) => {
                 }else{
                     alert('Opcion no disponible')
                 }
-                break;
-            case '6':
-                contenedor.innerHTML = '';
+}
+const movimientos = () => {
+    contenedor.innerHTML = '';
                 console.log(MOVIMIENTOS_CUENTA);
                 alert('Cargando los movimientos de tu cuenta...');
                 for(movimientos in MOVIMIENTOS_CUENTA){
@@ -299,17 +334,10 @@ const cajeroAutomatico = (retiro) => {
                     `
                     console.log(MOVIMIENTOS_CUENTA[movimientos]);
                 }
-                break;
-            case '7':
-                alert('Gracias por usar nuestros servicios.')
-                break;
-            default:
-                alert('Opcion no valida');
-                cajeroAutomatico();
-                break;
-        }
-    } else {
-        alert('Usuario o contraseña incorrectos');
-    }
 }
-cajeroAutomatico();
+
+
+
+btnMenu.addEventListener('click', () => {menuPricipal()})
+
+

@@ -1,88 +1,60 @@
 *{margin: 0; padding: 0; box-sizing: border-box;}
-body{
-    font-family: 'Heebo', sans-serif;
-    width: 100%;
-    height: 100vh;
-    background-color: #393E41;
-    color: #F6F7EB;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#contenedor{
+    height: 400px !important;
 }
-.tituloHead{
-margin-bottom: 10px;}
-.bienvenida{
-    
-    text-transform: uppercase;
-    margin-bottom: 15px;
+.mainMenu{
+    background-color: #243E36;
+}
+.row div{
+    background-color: #E0EEC6;
+}
+.opciones{
+    height: 120px !important;
+    cursor: pointer;
+
+}
+.opciones h2{
+    line-height: 60px;
+}
+.opciones i{
+    font-size: 50px;
 }
 
-.contenedor{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background-color: #3C6383;
-    width: 600px;
-    height: 250px;
-    border-radius: 13px;
-}
-.consultasHead{
-    
-    text-transform: uppercase;
-    margin: 10px 3px 3px 0px;
-}
 .dineroConsulta{
     display: flex;
-    
+    justify-content: space-around;
+    align-items: center;
 }
-.montoDepo{
-    width: 130px !important;
-    margin: 5px 3px 3px 0px !important
-}
-.dinero{
-    border-radius: 13px;
-    width: 110px;
-    height: 60px;
-    background-color: #126db8;
-    margin: 15px;
+.dineroConsulta .dinero{
+    background-color: #E0EEC6;
+    width: 150px;
+    height: 100px;
     text-align: center;
-    padding: 7px;
 }
-.dinero h3{
-    text-transform: uppercase;
-    
-}
-span{
-    font-style: italic;
-    line-height: 20px;
-}
-.divisa{
-    border-radius: 13px;
-    width: 140px;
-    height: 60px;
-    background-color: #3147be;
-    margin: 0px 3px 3px 0px;
-    text-align: center;
-    padding: 7px;
-}
-.precioDivisas{
-    display: flex;
-    
-}
-.consultasDivisasHead{
-    margin: 2px;
-}
-.btnAtras{
-    margin: 5px 10px;
-    padding: 5px 10px;
-    background-color: #35a844;
-    font-weight: bold;
-    color: #fff;
-    border:none;
-    cursor: pointer;
-    border-radius: 13px;
 
+.container-depo{
+    width: 300px;
+    height: 90%;
+    background-color: #E0EEC6;
+    margin:0 auto;
+    
 }
-.btnAtras:hover{
-    background-color: #36d84c;
+.contenido_Deposito{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+.input{
+    height: 50px;
+    border: none;
+    outline: none;
+}
+.btnEnviar{
+    width: 80px;
+}
+.dineroConsulta .montoDepo{
+    width: 180px;
 }
