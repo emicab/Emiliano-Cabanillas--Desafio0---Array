@@ -72,7 +72,7 @@ let nombreUser = prompt('Ingrese su Nombre de Usuario');
 nombreUser = nombreUser.toUpperCase();
 let dineroUser = parseInt(prompt('Por favor, ingrese su dinero de su cuenta bancaria.'));
 let claveUser = parseInt(prompt('Cree su clave bancaria de 3 digitos.'));
-const Usuario1 = new CuentaBanco(nombreUser, {Pesos: dineroUser, Dolares: 100, Euros: 500, Reales: 460}, claveUser  )
+const Usuario1 = new CuentaBanco(nombreUser, {Pesos: dineroUser, Dolares: 100, Euros: 500, Reales: 460}, claveUser)
 
 const MONEDAS_EXTRANJERAS = [[{Divisa: "Dolar Venta", Precio: "130,25"},{Divisa: "Dolar Compra", Precio: "124.25"}], [{Divisa: "Euro Venta", Precio: "135,00"}, {Divisa: "Euro Compra", Precio: "128.00"}], [{Divisa: "Real Venta", Precio: "25,80"}, {Divisa: "Real compra", Precio: "21.80"}]]
 

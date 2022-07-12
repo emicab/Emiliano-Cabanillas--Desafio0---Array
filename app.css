@@ -58,3 +58,13 @@
 .dineroConsulta .montoDepo{
     width: 180px;
 }
+body{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+#mainMenu{
+    margin:10px auto;
+    width: 200px;
+    height: 50px;
+}
